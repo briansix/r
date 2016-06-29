@@ -32,7 +32,6 @@ rankall <- function(outcome, num = "best") {
 
         
     ## Return specified state and measure
-
     outcomedata <- subset(outcomedata, select=c("Hospital.Name", "State", selectedoutcome))
 
     ## Make results numbers
@@ -45,11 +44,11 @@ rankall <- function(outcome, num = "best") {
     outcomedata = outcomedata[order(outcomedata[3], outcomedata$Hospital.Name),]
         
 
-    
-result <- NULL
-numr <- NULL
+    ## Create opbects for loop
+    result <- NULL
+    numr <- NULL
 
-    ## NEED to run for each state
+    ## Loop for each state
     for(state in levels(outcomedata$State)) {
         # not filtering states properly?
        outcomedatastate <- outcomedata[outcomedata$State==state, ]
@@ -61,13 +60,12 @@ numr <- NULL
                 numr <- nrow(outcomedatastate)
             } else {numr <- as.numeric(num)}
         }
-            ## Return specified result
-#            outcomedatastate <- outcomedatastate[numr,"Hospital.Name"] 
-#            row <- c(outcomedatastate, state)
-            row <- outcomedatastate[numr,]
-            row <- subset(row, select="Hospital.Name")
-            row <- cbind(row,state)
-            result <- rbind(result, row)
+         ## Return one row, hospital name and add state
+        row <- outcomedatastate[numr,]
+        row <- subset(row, select="Hospital.Name")
+        row <- cbind(row,state)
+        # Add to result object
+        result <- rbind(result, row)
     }  
     ## Return result
     result
