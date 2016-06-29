@@ -32,10 +32,7 @@ rankhospital <- function(state, outcome, num = "best") {
         }
     }
 
-
-        
     ## Return specified state and measure
-
     outcomedata <- subset(outcomedata, State == state, select=c("Hospital.Name", "State", selectedoutcome))
 
     ## Make results numbers
