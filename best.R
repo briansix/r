@@ -28,15 +28,11 @@ best <- function(state, outcome) {
     
     
     ## Return hospital name in that state with lowest 30-day death
-
-    
     outcomedata <- subset(outcomedata, State == state, select=c("Hospital.Name", "State", selectedoutcome))
     # remove NAs
     outcomedata <- na.omit(outcomedata)  
     # make results numbers
     outcomedata[,3] <- as.numeric(as.character(outcomedata[,3]))
-    # rate (first by alpha in a tie), didn't work?
-    # outcomedata <- outcomedata[order("Hospital.Name"),]
     # return one result
     outcomedata <- outcomedata[which.min(outcomedata[, 3]), "Hospital.Name"]
     outcomedata
